@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria de Imagens</title>
+    <!-- Carregando o Tailwind CSS para estilização rápida -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carregando a fonte Inter do Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Define a fonte padrão para a página */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Efeito de transição suave para as imagens */
+        .gallery-item img {
+            transition: transform 0.3s ease-in-out;
+        }
+        /* Efeito de zoom ao passar o mouse */
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Container principal -->
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        
+        <!-- Título da página -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+                Minha Galeria de Imagens
+            </h1>
+            <p class="mt-4 text-lg text-gray-600">
+                Uma coleção de 33 imagens incríveis.
+            </p>
+        </header>
+
+        <!-- Grid da galeria -->
+        <main>
+            <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- As imagens serão inseridas aqui dinamicamente pelo JavaScript -->
+            </div>
+        </main>
+
+    </div>
+
+    <script>
+        // Seleciona o container da galeria no HTML
+        const galleryContainer = document.getElementById('gallery');
+        
+        // Define o número total de imagens que você quer exibir
+        const totalImages = 33;
+
+        // Loop para criar e adicionar cada imagem à galeria
+        for (let i = 1; i <= totalImages; i++) {
+            // Caminho para a sua imagem. O JavaScript vai trocar o 'i' pelo número da imagem (1, 2, 3, etc.)
+            // IMPORTANTE: Para que isso funcione, suas imagens devem estar em uma pasta chamada "img"
+            // no mesmo nível do seu arquivo HTML.
+            const imageUrl = `/img/${i}.png`;
+
+            // Para demonstração, estou usando imagens de um serviço de placeholder.
+            // Quando você for usar com suas imagens, comente a linha abaixo
+            // e descomente a linha com o caminho real.
+            const placeholderUrl = `https://placehold.co/600x400/e2e8f0/334155?text=Imagem+${i}`;
+
+            // --- HTML que será criado para cada imagem ---
+            const imageElement = `
+                <div class="gallery-item bg-white rounded-lg shadow-lg overflow-hidden group cursor-pointer">
+                    <div class="overflow-hidden">
+                        <!-- 
+                          Quando for usar suas imagens, troque 'placeholderUrl' por 'imageUrl' no 'src' abaixo.
+                          Exemplo: <img src="${imageUrl}" ... >
+                        -->
+                        <img src="${placeholderUrl}" 
+                             alt="Imagem ${i}" 
+                             class="w-full h-48 object-cover"
+                             onerror="this.onerror=null;this.src='https://placehold.co/600x400/fecaca/991b1b?text=Erro+ao+carregar';">
+                    </div>
+                    <div class="p-4">
+                        <p class="text-center font-medium text-gray-700">Imagem ${i}</p>
+                    </div>
+                </div>
+            `;
+            
+            // Adiciona o HTML criado para a imagem dentro do container da galeria
+            galleryContainer.innerHTML += imageElement;
+        }
+    </script>
+</body>
+</html>
